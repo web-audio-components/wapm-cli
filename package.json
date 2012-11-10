@@ -1,0 +1,27 @@
+{
+  "name" : "wapm",
+  "description" : "A CLI for the Web Audio Package Manager",
+  "version" : "0.1.0",
+  "main" : "./wapm.js",
+  "dependencies" : {
+    "commander" : "latest",
+    "request" : "latest",
+    "colors" : "latest",
+    "underscore" : "latest"
+  },
+  "repository" : {
+    "type" : "git",
+    "url" : "http://github.com/wapm/wapm-cli"
+  },
+  "keywords" : [
+  ],
+  "author" : {
+    "name" : "Jordan Santell",
+    "url" : "http://github.com/jsantell"
+  },
+  "license" : "MIT",
+  "engines" : ["node >= 0.6.12"],
+  "bin" : {
+    "wapm" : "./bin/wapm"
+  }
+}

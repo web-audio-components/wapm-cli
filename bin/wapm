@@ -1,0 +1,31 @@
+#!/usr/bin/env node
+
+var wapm = require('../lib/wapm');
+
+var program = require('commander')
+
+program
+  .version(require('../package').version)
+
+program
+  .command( 'search <module>' )
+  .description( 'Search wapm for <module>' )
+  .action( wapm.search );
+
+program
+  .command( 'install' )
+  .description( 'Installs audio modules from wapm.json' )
+  .action( wapm.install )
+
+
+program
+  .command( 'install <module>' )
+  .description( 'Installs audio module <module> to current directory' )
+  .action( wapm.install )
+
+program
+  .command( 'register' )
+  .description( 'Registers the PWD\'s module using the wapm.json manifest' )
+  .action( wapm.register )
+
+program.parse(process.argv);
