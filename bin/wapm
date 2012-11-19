@@ -14,13 +14,13 @@ program
 
 program
   .command( 'install' )
-  .description( 'Installs audio modules from wapm.json' )
+  .description( 'Installs audio modules from wapm.json [ NOT YET IMPLEMENTED ]' )
   .action( wapm.install )
 
 
 program
   .command( 'install <module>' )
-  .description( 'Installs audio module <module> to current directory' )
+  .description( 'Installs audio module <module> to current directory [ NOT YET IMPLEMENTED ]' )
   .action( wapm.install )
 
 program

@@ -17,3 +17,8 @@ Web Audio Package Manager CLI
     register 
     Registers the PWD's module using the wapm.json manifest
 ```
+
+## TODO
+
+* Implement `wapm install`
+* Implement `wapm install <module>`
