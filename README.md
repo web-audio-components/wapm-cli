@@ -22,3 +22,4 @@ Web Audio Package Manager CLI
 
 * Implement `wapm install`
 * Implement `wapm install <module>`
+* Tests
