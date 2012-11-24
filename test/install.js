@@ -21,8 +21,18 @@ describe( 'wapm install', function () {
 
   describe( '[module]', function () {
 
-    it( 'should install a single module', function ( done ) {
+    it( 'can install from wapm-service', function ( done ) {
       exec( 'bin/wapm install simple-gain', function ( err, stdout ) {
+        if ( err ) return done(err);
+        stdout.should.include('GET');
+        expect( fs.existsSync( 'modules/simple-gain.js' ) ).to.equal( true );
+        done();
+      });
+    });
+
+    it( 'can install from a local directory', function ( done ) {
+      var cmd = 'bin/wapm install ' + __dirname + '/fixtures/simple-gain';
+      exec( cmd, function ( err, stdout ) {
         if ( err ) return done(err);
         stdout.should.include('GET');
         expect( fs.existsSync( 'modules/simple-gain.js' ) ).to.equal( true );
