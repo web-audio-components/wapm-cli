@@ -6,5 +6,8 @@
     "reverb",
     "plate"
   ],
-  "script" : "simple-reverb.js"
+  "script" : "simple-reverb.js",
+  "dependencies": [
+    "simple-gain"
+  ]
 }

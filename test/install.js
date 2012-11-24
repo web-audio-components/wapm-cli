@@ -40,7 +40,16 @@ describe( 'wapm install', function () {
       });
     });
 
-    // Check dependencies
+    it( 'correctly grabs dependencies', function ( done ) {
+      var cmd = 'bin/wapm install ' + __dirname + '/fixtures/simple-reverb';
+      exec( cmd, function ( err, stdout ) {
+        if ( err ) return done(err);
+        stdout.should.include('GET');
+        expect( fs.existsSync( 'modules/simple-gain.js' ) ).to.equal( true );
+        expect( fs.existsSync( 'modules/simple-reverb.js' ) ).to.equal( true );
+        done();
+      });
+    });
 
   });
 
