@@ -3,18 +3,24 @@
   "description" : "A CLI for the Web Audio Package Manager",
   "version" : "0.1.1",
   "main" : "./lib/wapm.js",
+  "scripts": {
+    "test": "mocha --reporter spec"
+  },
   "dependencies" : {
     "commander" : "latest",
     "request" : "latest",
     "colors" : "latest",
-    "underscore" : "latest"
+    "underscore" : "latest",
+    "batch": "latest"
+  },
+  "devDependencies": {
+    "chai": "latest",
+    "mocha": "latest"
   },
   "repository" : {
     "type" : "git",
     "url" : "http://github.com/wapm/wapm-cli"
   },
-  "keywords" : [
-  ],
   "author" : {
     "name" : "Jordan Santell",
     "url" : "http://github.com/jsantell"

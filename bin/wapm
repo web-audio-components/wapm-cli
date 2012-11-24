@@ -1,31 +1,64 @@
 #!/usr/bin/env node
 
-var wapm = require('../lib/wapm');
+/**
+ * Module dependencies.
+ */
 
-var program = require('commander')
+var 
+  program = require('commander'),
+  wapm = require('../lib/wapm');
+
+/**
+ * Utility function to intercept Commander's invocation of wapm core methods
+ * to clean and normalize the options object.
+ */
+
+var prepare = function ( fn ) {
+  return function () {
+    var args = Array.prototype.slice.call(arguments)
+      , data = args.pop()
+      , flags = {};
+    
+    data.options.forEach( function ( opt ) {
+      var name = opt.long.substr(2);
+      flags[name] = data[name] || null;
+    });
+
+    data.parent.options.forEach( function ( opt ) {
+      var name = opt.long.substr(2);
+      if ( name !== "version" && name !== "help" ) {
+        flags[name] = data.parent[name] || null;
+      }
+    });
+
+    fn.call(this, args, flags);
+  }
+};
+
+/**
+ * Program usage.
+ */
 
 program
-  .version(require('../package').version)
+  .version( require('../package').version )
+  .option( '-d, --debug', 'run in debug mode with verbose output')
 
 program
   .command( 'search <module>' )
   .description( 'Search wapm for <module>' )
-  .action( wapm.search );
+  .action( prepare( wapm.search ) );
 
 program
   .command( 'install' )
-  .description( 'Installs audio modules from wapm.json [ NOT YET IMPLEMENTED ]' )
-  .action( wapm.install )
-
-
-program
-  .command( 'install <module>' )
-  .description( 'Installs audio module <module> to current directory [ NOT YET IMPLEMENTED ]' )
-  .action( wapm.install )
+  .description( 'Install audio modules by name, or by reading from wapm.json' ) 
+  .action( prepare( wapm.install ) );
 
 program
   .command( 'register' )
   .description( 'Registers the PWD\'s module using the wapm.json manifest' )
-  .action( wapm.register )
+  .action( prepare( wapm.register ) );
 
+// Display help information if invoked with no arguments
+if ( process.argv.length < 3 ) { console.log( program.helpInformation() ); }
 program.parse(process.argv);
+
