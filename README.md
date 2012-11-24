@@ -1,6 +1,8 @@
 wapm-cli
 ========
 
+[![Build Status](https://travis-ci.org/wapm/wapm-cli.png)](https://travis-ci.org/wapm/wapm-cli)
+
 Web Audio Package Manager CLI
 
 
