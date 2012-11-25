@@ -53,9 +53,23 @@ describe( 'wapm install', function () {
 
   });
 
+  describe( '[module ...]', function () {
+
+    it( 'should install each module listed', function ( done ) {
+      var cmd = 'bin/wapm install simple-gain simple-reverb';
+      exec( cmd, function ( err, stdout ) {
+        if ( err ) return done(err);
+        expect( fs.existsSync( 'modules/simple-gain.js' ) ).to.equal( true );
+        expect( fs.existsSync( 'modules/simple-reverb.js' ) ).to.equal( true );
+        done();
+      });
+    });
+
+  });
+
   describe( 'install from wapm.json', function () {
 
-    it ( 'should install the full dependency list', function ( done ) {
+    it ( 'should install the full local dependency list', function ( done ) {
       exec( 'bin/wapm install', function ( err, stdout ) {
         if ( err ) return done(err);
         expect( fs.existsSync( 'modules/simple-gain.js' ) ).to.equal( true );
