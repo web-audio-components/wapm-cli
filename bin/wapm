@@ -5,34 +5,43 @@
  */
 
 var 
-  program = require('commander'),
-  wapm = require('../lib/wapm');
+  program = require( 'commander' ),
+  wapm    = require( '../lib/wapm' ),
+  version = require( '../package' ).version;
 
 /**
  * Program usage.
  */
 
 program
-  .version( require('../package').version )
+  .version( version );
 
 program
-  .command( 'search <module>' )
-  .description( 'Search wapm for <module>' )
+  .command( 'search' )
+  .usage( '[query]' )
+  .description( 'search the wapm registry for modules' )
   .action( wapm.search );
 
 program
+  .command( 'info' )
+  .usage( '<module>' )
+  .description( 'print information about a given module' )
+  .action( wapm.info );
+
+program
   .command( 'install' )
-  .description( 'Install audio modules by name, or by reading from wapm.json' ) 
+  .usage( '[options] [modules ...]' )
+  .option( '-f, --force', 'force the install' )
+  .description( 'install wapm audio modules' )
   .action( wapm.install );
 
 program
   .command( 'register' )
-  .description( 'Registers the PWD\'s module using the wapm.json manifest' )
+  .description( 'register a module from a wapm.json manifest' )
   .action( wapm.register );
 
-// Display help information and exit if invoked with no arguments
+// Display help information and exit if no arguments passed
 if ( process.argv.length < 3 ) { program.help(); }
 
 // Execute
 program.parse(process.argv);
-
