@@ -11,7 +11,8 @@
     "request" : "latest",
     "colors" : "latest",
     "underscore" : "latest",
-    "batch": "latest"
+    "batch": "latest",
+    "rimraf": "latest"
   },
   "devDependencies": {
     "chai": "latest",
