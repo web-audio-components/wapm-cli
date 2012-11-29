@@ -17,8 +17,25 @@ var
   wapm      = mockLoad( '../lib/wapm.js', { "./package" : Package } );
 
 describe( 'wapm module tests.', function () {
+
+  var data = {
+    dependencies: [ 'module-one', 'module-two' ]
+  };
+
   
   describe( 'wapm install', function () {
+
+    before( function () {
+      fs.writeFileSync( 'wapm.json', JSON.stringify({
+        dependencies: [ 'module-one', 'module-two' ]
+      }));
+    });
+
+    after( function ( done ) {
+      rimraf( 'wapm.json', function ( err ) {
+        done( err );
+      });
+    });
 
     afterEach( function () {
       wapm.Package.callCount = 0;
@@ -42,6 +59,10 @@ describe( 'wapm module tests.', function () {
 
     it( 'can install from ./wapm.json', function () {
       wapm.exports.install( {} );
+      expect( wapm.Package.called ).to.equal( true );
+      expect( wapm.Package.callCount ).to.equal( 2 );
+      expect( wapm.Package.args[0][0] ).to.equal( 'module-one' );
+      expect( wapm.Package.args[1][0] ).to.equal( 'module-two' );
     });
 
   });
