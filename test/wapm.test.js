@@ -62,5 +62,53 @@ describe( 'wapm module tests.', function () {
 
   });
 
+  describe( 'wapm register', function () {
+
+    var 
+      request = require( './lib/mocks' ).request,
+      utils = require( './lib/mocks' ).utils,
+      wapm = mockLoad( '../lib/wapm.js', {
+        request : request,
+        './utils': utils
+      });
+
+    afterEach( function ( done ) {
+      utils.log.args = 0;
+      utils.log.callCount = 0;
+      rimraf( 'wapm.json', function ( err ) {
+        done( err );
+      });
+    });
+
+    it( 'confirms registration on success', function () {
+      fs.writeFileSync( 'wapm.json', JSON.stringify({
+        name: 'my-cool-module',
+        repo: 'nick/cool',
+        description: 'too cool for school, son',
+        keywords: [ 'obviously', 'this', 'is', 'cool' ],
+        script: './path/to/cool.js'
+      }));
+      wapm.exports.register();
+
+      expect( utils.log.callCount ).to.equal(1);
+      chai.assert( /success/.test( utils.log.args[0][0] ) );
+    });
+
+    it( 'alerts on registration failure', function () {
+      fs.writeFileSync( 'wapm.json', JSON.stringify({
+        name: 'my-cool-module',
+        repo: 'https://www.github.com/nick/cool',
+        description: 'too cool for school, son',
+        keywords: [ 'obviously', 'this', 'is', 'cool' ],
+        script: './path/to/cool.js'
+      }));
+      wapm.exports.register();
+
+      expect( utils.error.callCount ).to.equal(1);
+      chai.assert( /Bad/.test( utils.error.args[0][0].message ) );
+    });
+
+  });
+
 });
 
