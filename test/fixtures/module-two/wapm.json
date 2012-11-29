@@ -1,0 +1,13 @@
+{
+  "name" : "module-two",
+  "description" : "A simple gain, not as cool as the MT-2",
+  "repo" : "wapm/simple-gain",
+  "keywords" : [
+    "distortion",
+    "fuzz"
+  ],
+  "dependencies": [
+    "module-one"
+  ],
+  "script" : "simple-gain.js"
+}
