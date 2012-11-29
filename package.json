@@ -16,7 +16,8 @@
   },
   "devDependencies": {
     "chai": "latest",
-    "mocha": "latest"
+    "mocha": "latest",
+    "sinon": "latest"
   },
   "repository" : {
     "type" : "git",

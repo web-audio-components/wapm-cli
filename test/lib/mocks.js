@@ -1,7 +1,8 @@
 
 var 
   path = require( 'path' ),
-  fs = require( 'fs' );
+  fs = require( 'fs' ),
+  sinon = require( 'sinon' );
 
 /**
  * Mocking the request module
@@ -24,3 +25,11 @@ exports.request = function ( url, callback ) {
   return callback( null, { statusCode: 200 }, fs.readFileSync( url ) );
 };
 
+/**
+ * Mocking the Package object
+ * for testing the interface between lib/wapm
+ * and lib/package
+ */
+
+exports.Package = sinon.spy();
+exports.Package.prototype.install = sinon.spy();
