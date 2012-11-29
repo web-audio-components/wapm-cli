@@ -18,11 +18,6 @@ var
 
 describe( 'wapm module tests.', function () {
 
-  var data = {
-    dependencies: [ 'module-one', 'module-two' ]
-  };
-
-  
   describe( 'wapm install', function () {
 
     before( function () {
@@ -68,8 +63,4 @@ describe( 'wapm module tests.', function () {
   });
 
 });
-      
-
-
-
 
