@@ -43,5 +43,10 @@ program
 // Display help information and exit if no arguments passed
 if ( process.argv.length < 3 ) { program.help(); }
 
+// Prettify
+console.log();
+process.on( 'exit', function () { console.log(); } );
+
 // Execute
 program.parse(process.argv);
+
