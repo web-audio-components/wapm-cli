@@ -142,5 +142,22 @@ describe( 'WAPM tests.', function () {
 
   });
 
+  describe( 'wapm info', function () {
+
+    var 
+      request = require( './lib/mocks' ).request,
+      utils = require( './lib/mocks' ).utils,
+      wapm = mockLoad( '../lib/wapm.js', {
+        request : request,
+        './utils': utils
+      });
+
+    it( 'logs package info to console', function () {
+      wapm.exports.info( 'module-one', {} );
+      expect( utils.display.callCount ).to.equal( 2 );
+    });
+
+  });
+
 });
 
