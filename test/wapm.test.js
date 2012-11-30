@@ -14,9 +14,9 @@ var
   config    = require( '../lib/config' ),
   mockLoad  = require( './lib/mockload' ),
   Package   = require( './lib/mocks' ).Package,
-  wapm      = mockLoad( '../lib/wapm.js', { "./package" : Package } );
+  wapm      = mockLoad( '../lib/wapm.js', { './package' : Package } );
 
-describe( 'wapm module tests.', function () {
+describe( 'WAPM tests.', function () {
 
   describe( 'wapm install', function () {
 
@@ -73,8 +73,10 @@ describe( 'wapm module tests.', function () {
       });
 
     afterEach( function ( done ) {
-      utils.log.args = 0;
+      utils.log.args.length = 0;
       utils.log.callCount = 0;
+      utils.error.args.length = 0;
+      utils.error.callCount = 0;
       rimraf( 'wapm.json', function ( err ) {
         done( err );
       });
@@ -106,6 +108,36 @@ describe( 'wapm module tests.', function () {
 
       expect( utils.error.callCount ).to.equal(1);
       chai.assert( /Bad/.test( utils.error.args[0][0].message ) );
+    });
+
+  });
+
+  describe( 'wapm search', function () {
+
+    var 
+      request = require( './lib/mocks' ).request,
+      utils = require( './lib/mocks' ).utils,
+      wapm = mockLoad( '../lib/wapm.js', {
+        request : request,
+        './utils': utils
+      });
+
+    afterEach( function () {
+      utils.log.args.length = 0;
+      utils.log.callCount = 0;
+      utils.error.args.length = 0;
+      utils.error.callCount = 0;
+    });
+
+    it( 'doesnt accept empty search queries', function () {
+      wapm.exports.search();
+      expect( utils.error.callCount ).to.equal( 1 );
+      chai.assert( /Invalid/.test( utils.error.args[0][0] ) );
+    });
+
+    it( 'logs package info to console', function () {
+      wapm.exports.search( 'hey', 'this', 'is', 'cool' );
+      expect( utils.display.callCount ).to.equal( 2 );
     });
 
   });

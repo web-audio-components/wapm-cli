@@ -1,0 +1,25 @@
+[
+  {
+    "name" : "explanation",
+    "description" : "I can imitate server response to search queries by putting",
+    "repo" : "this/file-here",
+    "keywords" : [
+      "badass",
+      "right?"
+    ],
+    "script" : "simple-gain.js"
+  },
+  {
+    "name" : "module-two",
+    "description" : "A simple gain, not as cool as the MT-2",
+    "repo" : "wapm/simple-gain",
+    "keywords" : [
+      "distortion",
+      "fuzz"
+    ],
+    "dependencies": [
+      "module-one"
+    ],
+    "script" : "simple-gain.js"
+  }
+]

@@ -11,7 +11,15 @@ var
  */
 
 exports.request = function ( url, callback ) {
-  var stats;
+  var stats,
+      json = false;
+
+  if ( typeof url === 'object' ) {
+    json = url.json;
+    url = url.uri;
+  }
+
+  url = url.replace( /search\/.+/, '' );
 
   try {
     stats = fs.statSync( url );
@@ -23,7 +31,10 @@ exports.request = function ( url, callback ) {
     url = path.resolve( url, 'wapm.json' );
   }
 
-  return callback( null, { statusCode: 200 }, fs.readFileSync( url ) );
+  var data = json
+    ? JSON.parse( fs.readFileSync( url ) )
+    : fs.readFileSync( url );
+  return callback( null, { statusCode: 200 }, data );
 };
 
 /**
@@ -62,5 +73,6 @@ exports.utils = {
   error: sinon.spy(),
   log: sinon.spy(),
   fatal: sinon.spy(),
+  display: sinon.spy(),
   readLocalManifest: utils.readLocalManifest
 };
