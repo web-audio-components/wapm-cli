@@ -13,7 +13,11 @@ var
   config    = require( '../lib/config' ),
   mockLoad  = require( './lib/mockload' ),
   request   = require( './lib/mocks' ).request,
-  Package   = mockLoad( '../lib/package.js', { request: request } ).Package;
+  mockFs    = require( './lib/mocks' ).fs,
+  Package   = mockLoad( '../lib/package.js', { 
+                request: request,
+                fs: mockFs
+               } ).Package;
 
 describe( 'Package tests.', function () {
   var dest = path.resolve( path.resolve( __dirname, '../' ), config.dest );

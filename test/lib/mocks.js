@@ -76,3 +76,19 @@ exports.utils = {
   display: sinon.spy(),
   readLocalManifest: utils.readLocalManifest
 };
+
+/**
+ * Mock out fs.writeFile to force it to be synchronous,
+ * for ease of testing
+ */
+
+exports.fs = fs;
+exports.fs.writeFile = function ( fname, data, callback ) {
+  try {
+    fs.writeFileSync( fname, data );
+  } catch ( err ) {
+    return callback( err );
+  }
+  return callback();
+};
+
